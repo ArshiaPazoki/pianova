@@ -3,33 +3,57 @@ type PianoKeyProps = {
   type: 'white' | 'black';
   isActive?: boolean;
   onClick?: () => void;
-  leftPercent?: number; // for black keys positioning
+  leftPercent?: number; // Only used for black keys on desktop
 };
 
-export default function PianoKey({ note, type, isActive, onClick, leftPercent }: PianoKeyProps) {
+export default function PianoKey({
+  note,
+  type,
+  isActive,
+  onClick,
+  leftPercent,
+}: PianoKeyProps) {
   const isBlack = type === 'black';
 
+  const activeStyle = isActive ? 'scale-95 brightness-110' : '';
+
   const baseClasses = `
-    flex items-end justify-center text-xs pb-1 rounded-sm
-    border border-gray-700 active:scale-95 transition-transform
-    ${isBlack ? 'bg-black text-white absolute z-20 w-[8%] h-[60%] top-0' : 'bg-white text-black flex-1 h-full relative'}
+    flex items-center justify-start sm:items-end sm:justify-center
+    px-3 text-xs font-semibold rounded-sm border border-gray-700
+    transition-transform duration-75
+    ${activeStyle}
   `;
 
-  const activeClasses = isActive
-    ? isBlack
-      ? 'scale-95'
-      : 'scale-95'
-    : '';
-
-  const style = isBlack && leftPercent !== undefined
-    ? { left: `${leftPercent}%` }
-    : undefined;
+  if (isBlack) {
+    return (
+      <button
+        onClick={onClick}
+        style={
+          leftPercent !== undefined
+            ? { left: `${leftPercent}%` }
+            : undefined
+        }
+        className={`
+          ${baseClasses}
+          bg-black text-white z-20
+          absolute w-full h-[60%]
+          sm:w-[6%] sm:h-[60%] sm:top-0
+        `}
+      >
+        {note}
+      </button>
+    );
+  }
 
   return (
     <button
       onClick={onClick}
-      className={`${baseClasses} ${activeClasses}`}
-      style={style}
+      className={`
+        ${baseClasses}
+        bg-white text-black
+        w-full h-[12vh]
+        sm:relative sm:flex-1 sm:h-full
+      `}
     >
       {note}
     </button>

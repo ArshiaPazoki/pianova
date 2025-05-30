@@ -25,7 +25,17 @@ export default function PianoOctave({
   activeNote?: string;
 }) {
   return (
-    <div className="relative w-full max-w-[700px] aspect-[7/2.5]">
+    <div 
+    //     className="
+    //     relative w-full sm:max-w-[700px]
+    //     aspect-[7/2.5] sm:aspect-[7/2.5]
+    //     rotate-90 sm:rotate-0 origin-top-left sm:origin-center
+    //     scale-[0.9] sm:scale-100
+    // "
+        className='
+            relative h-full w-full min-w-[500px]
+        '
+    >
       {/* White keys in flex layout */}
       <div className="flex h-full w-full z-10">
         {whiteKeys.map((note) => {

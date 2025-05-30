@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import PianoOctave from '../molecules/PianoOctave';
-import { keyboardToNote } from '../../utils/noteMap';
+import { useEffect, useState } from "react";
+import PianoOctave from "../molecules/PianoOctave";
+import { keyboardToNote } from "../../utils/noteMap";
 
 export default function Piano({ octaves = 1 }: { octaves?: number }) {
   const [activeNote, setActiveNote] = useState<string | null>(null);
@@ -10,8 +10,8 @@ export default function Piano({ octaves = 1 }: { octaves?: number }) {
   // Handle physical keyboard
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      console.log(e.key.toLocaleLowerCase())
-        const note = keyboardToNote[e.key.toLowerCase()];
+      console.log(e.key.toLocaleLowerCase());
+      const note = keyboardToNote[e.key.toLowerCase()];
       if (note) {
         setActiveNote(note);
         // TODO: play sound
@@ -25,11 +25,11 @@ export default function Piano({ octaves = 1 }: { octaves?: number }) {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
 
@@ -42,10 +42,13 @@ export default function Piano({ octaves = 1 }: { octaves?: number }) {
 
   // Generate desired octaves
   const startOctave = 4 - Math.floor(octaves / 2);
-  const octaveRange = Array.from({ length: octaves }, (_, i) => startOctave + i);
+  const octaveRange = Array.from(
+    { length: octaves },
+    (_, i) => startOctave + i
+  );
 
   return (
-    <div className="flex justify-center p-4 rounded-sm gap-2 overflow-x-auto max-w-full">
+    <div className="flex flex-col sm:flex-row justify-center p-4 rounded-sm gap-2 overflow-x-auto max-w-full h-60">
       {octaveRange.map((octave) => (
         <PianoOctave
           key={octave}

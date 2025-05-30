@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-white text-black min-h-screen flex items-center justify-center">{children}</body>
+      <body className="bg-white text-black min-h-screen min-w-screen flex items-center justify-center">{children}</body>
     </html>
   );
 }
