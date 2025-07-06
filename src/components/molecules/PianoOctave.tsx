@@ -4,16 +4,22 @@
 import React from "react";
 import { PianoKey } from "../atoms/PianoKey";
 
-export const PianoOctave: React.FC<{ octave: number }> = ({ octave }) => {
-  const whiteNotes = ["C", "D", "E", "F", "G", "A", "B"];
+interface PianoOctaveProps {
+  octave: number;
+  activeNotes: Set<string>;
+}
 
+export const PianoOctave: React.FC<PianoOctaveProps> = ({ octave, activeNotes }) => {
+  const whiteNotes = ["C", "D", "E", "F", "G", "A", "B"];
+  // Helper to check if note is active
+  const isActive = (note: string) => activeNotes.has(note);
   return (
     <div className="relative sm:w-[33dvw]">
       {/* White keys */}
       <div className="grid grid-cols-7 w-full h-full z-0">
         {whiteNotes.map((note) => (
           <div key={note} className="flex items-end justify-center h-full">
-            <PianoKey note={note + octave} type="white" />
+            <PianoKey note={note + octave} type="white" active={isActive(note + octave)} />
           </div>
         ))}
       </div>
@@ -30,7 +36,7 @@ export const PianoOctave: React.FC<{ octave: number }> = ({ octave }) => {
                 className="flex items-start justify-center pointer-events-auto"
               >
                 <div className="h-[60%] w-full">
-                  <PianoKey note={note + octave} type="black" />
+                  <PianoKey note={note + octave} type="black" active={isActive(note + octave)} />
                 </div>
               </div>
             ) : (
@@ -50,7 +56,7 @@ export const PianoOctave: React.FC<{ octave: number }> = ({ octave }) => {
                 className="flex items-start justify-center pointer-events-auto"
               >
                 <div className="h-[60%] w-full">
-                  <PianoKey note={note + octave} type="black" />
+                  <PianoKey note={note + octave} type="black" active={isActive(note + octave)} />
                 </div>
               </div>
             ) : (
