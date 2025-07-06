@@ -1,70 +1,64 @@
-//  ┌─┐ ┌─┐   ┌─┐ ┌─┐ ┌─┐
-//  │ │ │ │   │ │ │ │ │ │  ← black keys on top
-//  ┌┴─┴┬┴─┴┬┴─┴┬┴─┴┬┴─┴┐
-//  │ C │ D │ E │ F │ G │ ... ← white keys
-// components/molecules/PianoOctave.tsx
-import PianoKey from '../atoms/PianoKey';
+// White keys: ┃C┃D┃E┃F┃G┃A┃B┃  → grid-cols-7 (under)
+// Black keys: ┃ ⎯C#⎯ D#┃   ⎯F#⎯ G#⎯ A#┃  → grid-cols-5 + grid-cols-7 (above, inline)
 
-const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+import React from "react";
+import { PianoKey } from "../atoms/PianoKey";
 
-// Black keys and their left % relative to white key layout
-const blackKeyMap = [
-  { note: 'C#', leftPercent: 10 },
-  { note: 'D#', leftPercent: 25 },
-  // skip E
-  { note: 'F#', leftPercent: 54 },
-  { note: 'G#', leftPercent: 68 },
-  { note: 'A#', leftPercent: 83 },
-];
+export const PianoOctave: React.FC<{ octave: number }> = ({ octave }) => {
+  const whiteNotes = ["C", "D", "E", "F", "G", "A", "B"];
 
-export default function PianoOctave({
-  octave = 4,
-  activeNote,
-}: {
-  octave?: number;
-  activeNote?: string;
-}) {
   return (
-    <div 
-    //     className="
-    //     relative w-full sm:max-w-[700px]
-    //     aspect-[7/2.5] sm:aspect-[7/2.5]
-    //     rotate-90 sm:rotate-0 origin-top-left sm:origin-center
-    //     scale-[0.9] sm:scale-100
-    // "
-        className='
-            relative h-full w-full min-w-[500px]
-        '
-    >
-      {/* White keys in flex layout */}
-      <div className="flex h-full w-full z-10">
-        {whiteKeys.map((note) => {
-          const fullNote = `${note}${octave}`;
-          return (
-            <PianoKey
-              key={fullNote}
-              note={fullNote}
-              type="white"
-              isActive={activeNote === fullNote}
-            />
-          );
-        })}
+    <div className="relative sm:w-[33dvw]">
+      {/* White keys */}
+      <div className="grid grid-cols-7 w-full h-full z-0">
+        {whiteNotes.map((note) => (
+          <div key={note} className="flex items-end justify-center h-full">
+            <PianoKey note={note + octave} type="white" />
+          </div>
+        ))}
       </div>
 
-      {/* Black keys absolutely positioned */}
-      {blackKeyMap.map(({ note, leftPercent }) => {
-        const fullNote = `${note}${octave}`;
-        return (
-          <PianoKey
-            key={fullNote}
-            note={fullNote}
-            type="black"
-            leftPercent={leftPercent}
-            isActive={activeNote === fullNote}
-          />
-        );
-      })}
+      {/* Black keys (2-part grid in single row) */}
+      <div className="absolute inset-0 w-full h-full z-10 pointer-events-none flex">
+        {/* Part 1: 5-column grid for C# and D# */}
+        <div className="grid grid-cols-5 w-3/7 h-full">
+          {[0, 1, 2, 3, 4].map((i) => {
+            const note = i === 1 ? "C#" : i === 3 ? "D#" : null;
+            return note ? (
+              <div
+                key={i}
+                className="flex items-start justify-center pointer-events-auto"
+              >
+                <div className="h-[60%] w-full">
+                  <PianoKey note={note + octave} type="black" />
+                </div>
+              </div>
+            ) : (
+              <div key={i} />
+            );
+          })}
+        </div>
+
+        {/* Part 2: 7-column grid for F#, G#, A# */}
+        <div className="grid grid-cols-7 w-4/7 h-full">
+          {[0, 1, 2, 3, 4, 5, 6].map((i) => {
+            const note =
+              i === 1 ? "F#" : i === 3 ? "G#" : i === 5 ? "A#" : null;
+            return note ? (
+              <div
+                key={i}
+                className="flex items-start justify-center pointer-events-auto"
+              >
+                <div className="h-[60%] w-full">
+                  <PianoKey note={note + octave} type="black" />
+                </div>
+              </div>
+            ) : (
+              <div key={i} />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
-}
-
+};

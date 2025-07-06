@@ -1,61 +1,20 @@
-type PianoKeyProps = {
+import clsx from "clsx";
+import { playNote } from "@/lib/pianoEngine";
+interface PianoKeyProps {
   note: string;
-  type: 'white' | 'black';
-  isActive?: boolean;
+  type: "white" | "black";
   onClick?: () => void;
-  leftPercent?: number; // Only used for black keys on desktop
-};
-
-export default function PianoKey({
-  note,
-  type,
-  isActive,
-  onClick,
-  leftPercent,
-}: PianoKeyProps) {
-  const isBlack = type === 'black';
-
-  const activeStyle = isActive ? 'scale-95 brightness-110' : '';
-
-  const baseClasses = `
-    flex items-center justify-start sm:items-end sm:justify-center
-    px-3 text-xs font-semibold rounded-sm border border-gray-700
-    transition-transform duration-75
-    ${activeStyle}
-  `;
-
-  if (isBlack) {
-    return (
-      <button
-        onClick={onClick}
-        style={
-          leftPercent !== undefined
-            ? { left: `${leftPercent}%` }
-            : undefined
-        }
-        className={`
-          ${baseClasses}
-          bg-black text-white z-20
-          absolute w-full h-[60%]
-          sm:w-[6%] sm:h-[60%] sm:top-0
-        `}
-      >
-        {note}
-      </button>
-    );
-  }
-
-  return (
-    <button
-      onClick={onClick}
-      className={`
-        ${baseClasses}
-        bg-white text-black
-        w-full h-[12vh]
-        sm:relative sm:flex-1 sm:h-full
-      `}
-    >
-      {note}
-    </button>
-  );
 }
+
+export const PianoKey: React.FC<PianoKeyProps> = ({ note, type, onClick }) => (
+  <div
+    onClick={() => playNote(note)}
+    className={clsx(
+      "w-full h-full p-1 ring flex justify-center items-end text-xs select-none rounded-b",
+      type === "white" && "bg-neutral-50 text-black ring-neutral-950 m-0.25 hover:bg-neutral-300",
+      type === "black" && "bg-neutral-950 text-white ring-neutral-950 hover:bg-neutral-700"
+    )}
+  >
+    {note}
+  </div>
+);

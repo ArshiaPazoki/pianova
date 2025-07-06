@@ -1,12 +1,23 @@
-import Piano from "@/components/organisms/Piano";
+"use client";
+import { Piano } from "@/components/organisms/Piano";
+import { useEffect } from "react";
+import { initMIDI } from "@/lib/pianoEngine";
 
 export default function Home() {
+  useEffect(() => {
+    initMIDI();
+  }, []);
   return (
-    <div  className='w-full h-full bg-black drop-shadow-black drop-shadow-md'>
-      <Piano octaves={7}/>
+    <div className="w-screen h-screen flex flex-col">
+      {/* Content above the piano (if any) */}
+      <div className="flex-1 overflow-auto">
+        {/* You can put your page content here */}
+      </div>
+
+      {/* Piano fixed at the bottom */}
+      <div className="w-full h-[25vh] sm:h-[25vh] bg-neutral-800 overflow-x-auto">
+        <Piano />
+      </div>
     </div>
-    // <div className="min-h-screen bg-black text-white flex items-center justify-center">
-    //   <Piano octaves={2} />
-    // </div>
   );
 }
