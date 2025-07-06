@@ -138,7 +138,7 @@ function handleMIDIMessage(msg: MIDIMessageEvent) {
 
   switch (command) {
     case 0x90: // Note on
-      velocity > 0 ? playNote(note, velocity) : releaseNote(note);
+      () => velocity > 0 ? playNote(note, velocity) : releaseNote(note);
       break;
     case 0x80: // Note off
       releaseNote(note);
