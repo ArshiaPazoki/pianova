@@ -15,7 +15,7 @@ export default function Home() {
       <header className="p-5 border-b border-neutral-800 shadow-sm bg-neutral-900">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="">
-            <h1 className="text-3xl font-extrabold tracking-tight text-white">PiaNova By Arshia Pazoki</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-white">PiaNova <span className="text-2xl">By Arshia Pazoki</span></h1>
             <p className="text-sm text-neutral-400 mt-1 max-w-3xl">
               PiaNova is a multi-purpose interactive piano web app built with{" "}
               <a href="https://nextjs.org/" className="underline hover:text-blue-400" target="_blank">Next.js 14</a>,{" "}
