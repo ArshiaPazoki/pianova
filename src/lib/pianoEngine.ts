@@ -1,42 +1,51 @@
 import * as Tone from "tone";
 
-/**
- * Audio Chain:
- * Sampler → Envelope → Reverb → Destination
- */
-
-// --- Reverb for spaciousness ---
-const reverb = new Tone.Reverb({
-  decay: 0.05,
-  preDelay: 0.01,
-  wet: 0.1,
-}).toDestination();
-
-// --- Envelope for shaping note dynamics ---
-const envelope = new Tone.AmplitudeEnvelope({
-  attack: 0.01,
-  decay: 0.3,
-  sustain: 0.5,
-  release: 1.0,
-}).connect(reverb);
-
-// --- Single-sample Sampler (C4) ---
-const sampler = new Tone.Sampler({
-  urls: { C4: "C4.mp3" },
-  baseUrl: "/samples/",
-  onload: () => console.log("🎹 Sampler loaded"),
-}).connect(envelope);
-
 // --- State tracking ---
 let sustainOn = true;
-const heldNotes = new Set<string>();     // notes physically held
-const sustainedNotes = new Set<string>(); // notes being sustained
+const heldNotes = new Set<string>();
+const sustainedNotes = new Set<string>();
+
+// --- Lazy-initialized synth components ---
+let reverb: Tone.Reverb;
+let envelope: Tone.AmplitudeEnvelope;
+let sampler: Tone.Sampler;
+let initialized = false;
+
+/**
+ * Initialize the synth engine (safe for browser only)
+ */
+export function initSynth() {
+  if (initialized || typeof window === "undefined") return;
+
+  reverb = new Tone.Reverb({
+    decay: 0.05,
+    preDelay: 0.01,
+    wet: 0.1,
+  }).toDestination();
+
+  envelope = new Tone.AmplitudeEnvelope({
+    attack: 0.01,
+    decay: 0.3,
+    sustain: 0.5,
+    release: 1.0,
+  }).connect(reverb);
+
+  sampler = new Tone.Sampler({
+    urls: { C4: "C4.wav" },
+    baseUrl: "/samples/",
+    onload: () => console.log("🎹 Sampler loaded"),
+  }).connect(envelope);
+
+  initialized = true;
+}
 
 /**
  * Play a note (triggered on key down or MIDI on)
  */
 export async function playNote(note: string, velocity = 1) {
-  await Tone.start(); // Required once
+  if (!initialized) initSynth();
+
+  await Tone.start();
 
   const now = Tone.now();
   heldNotes.add(note);
@@ -51,10 +60,8 @@ export function releaseNote(note: string) {
   heldNotes.delete(note);
 
   if (sustainOn) {
-    // Don't release now; defer to sustain release
     sustainedNotes.add(note);
   } else {
-    // Key is no longer held and sustain is off: release now
     triggerNoteRelease(note);
   }
 }
@@ -66,7 +73,6 @@ export function setSustain(enabled: boolean) {
   sustainOn = enabled;
 
   if (!enabled) {
-    // Release all sustained notes that aren't currently held
     for (const note of sustainedNotes) {
       if (!heldNotes.has(note)) {
         triggerNoteRelease(note);
@@ -80,6 +86,8 @@ export function setSustain(enabled: boolean) {
  * Actually trigger note release
  */
 function triggerNoteRelease(note: string) {
+  if (!initialized) return;
+
   const now = Tone.now();
   sampler.triggerRelease(note, now);
   envelope.triggerRelease(now);
@@ -99,6 +107,8 @@ export function setEnvelope({
   sustain?: number;
   release?: number;
 }) {
+  if (!initialized) return;
+
   if (attack !== undefined) envelope.attack = attack;
   if (decay !== undefined) envelope.decay = decay;
   if (sustain !== undefined) envelope.sustain = sustain;
@@ -109,7 +119,7 @@ export function setEnvelope({
  * Initialize Web MIDI support
  */
 export async function initMIDI() {
-  if (!navigator.requestMIDIAccess) {
+  if (typeof window === "undefined" || !navigator.requestMIDIAccess) {
     console.warn("Web MIDI not supported.");
     return;
   }
@@ -138,7 +148,11 @@ function handleMIDIMessage(msg: MIDIMessageEvent) {
 
   switch (command) {
     case 0x90: // Note on
-      () => velocity > 0 ? playNote(note, velocity) : releaseNote(note);
+      if (velocity > 0) {
+        playNote(note, velocity);
+      } else {
+        releaseNote(note);
+      }
       break;
     case 0x80: // Note off
       releaseNote(note);

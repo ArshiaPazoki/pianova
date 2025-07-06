@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { playNote, releaseNote } from "@/lib/pianoEngine";
 
-const keyNoteMap: Record<string, string> = {
+export const keyNoteMap: Record<string, string> = {
   q: "C3",
   "2": "C#3",
   w: "D3",

@@ -14,7 +14,7 @@ export const PianoOctave: React.FC<PianoOctaveProps> = ({ octave, activeNotes })
   // Helper to check if note is active
   const isActive = (note: string) => activeNotes.has(note);
   return (
-    <div className="relative sm:w-[33dvw]">
+    <div className="relative w-[100dvw] sm:w-[33dvw]">
       {/* White keys */}
       <div className="grid grid-cols-7 w-full h-full z-0">
         {whiteNotes.map((note) => (

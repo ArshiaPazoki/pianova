@@ -44,7 +44,7 @@ export const PianoKey: React.FC<PianoKeyProps> = ({ note, type, active = false }
       }}
       className={clsx(
         activeClass,
-        "w-full h-full p-1 ring flex justify-center items-end text-xs select-none rounded-b",
+        "w-full h-full p-1 ring flex justify-center items-end text-xs select-none rounded-b-md",
         type === "white"
           ? "bg-neutral-50 text-black ring-neutral-950 m-0.25 hover:bg-neutral-300"
           : "bg-neutral-950 text-white ring-neutral-950 hover:bg-neutral-700"
