@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="w-screen h-screen flex flex-col bg-neutral-950 text-white font-sans">
       {/* Header */}
-      <header className="p-5 border-b border-neutral-800 shadow-sm bg-neutral-900">
+      <header className="p-5 ring-b ring-neutral-800 shadow-sm bg-neutral-900">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="">
             <h1 className="text-3xl font-extrabold tracking-tight text-white">
@@ -52,11 +52,11 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 px-4 py-8 overflow-auto">
+      <main className="flex-1 px-4 py-8 overflow-auto no-scrollbar">
         <section className="max-w-3xl mx-auto">
 
           {/* 🎹 Full QWERTY Layout with Notes on Mapped Keys */}
-          <div className="mt-0 px-4 py-6 border border-neutral-800 rounded-xl bg-neutral-900 w-full max-w-4xl mx-auto">
+          <div className="mt-0 px-4 py-6 ring ring-neutral-800 rounded-xl bg-neutral-900 w-full max-w-4xl mx-auto">
             <h3 className="text-lg font-bold text-white mb-4 text-center">
               🎮 Keyboard to Piano Keys Mapping
             </h3>
@@ -81,23 +81,23 @@ export default function Home() {
                 ].map((key) => (
                   <kbd
                     key={key}
-                    className={`w-10 h-10 flex items-center justify-center rounded border ${
+                    className={`w-10 h-10 flex items-center justify-center rounded ring ${
                       keyNoteMap[key]
-                        ? "bg-neutral-950 text-white border-neutral-600"
-                        : "bg-neutral-950 text-neutral-700 border-neutral-800"
+                        ? "bg-neutral-950 text-white ring-neutral-600 hover:ring-red-600"
+                        : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                     }`}
                   >
                     {keyNoteMap[key] ?? ""}
                   </kbd>
                 ))}
-                <kbd className="w-16 h-10 flex items-center justify-center rounded border bg-neutral-950 text-neutral-500 border-neutral-800">
+                <kbd className="w-16 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⌫
                 </kbd>
               </div>
 
               {/* Row 2: QWERTY */}
               <div className="flex justify-center gap-[4px]">
-                <kbd className="w-14 h-10 flex items-center justify-center rounded border bg-neutral-950 text-neutral-500 border-neutral-800">
+                <kbd className="w-14 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇥
                 </kbd>
                 {[
@@ -117,10 +117,10 @@ export default function Home() {
                 ].map((key) => (
                   <kbd
                     key={key}
-                    className={`w-10 h-10 flex items-center justify-center rounded border ${
+                    className={`w-10 h-10 flex items-center justify-center rounded ring ${
                       keyNoteMap[key]
-                        ? "bg-neutral-950 text-white border-neutral-600"
-                        : "bg-neutral-950 text-neutral-700 border-neutral-800"
+                        ? "bg-neutral-950 text-white ring-neutral-600 hover:ring-red-600"
+                        : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                     }`}
                   >
                     {keyNoteMap[key] ?? ""}
@@ -130,48 +130,48 @@ export default function Home() {
 
               {/* Row 3: ASDF */}
               <div className="flex justify-center gap-[4px]">
-                <kbd className="w-16 h-10 flex items-center justify-center rounded border bg-neutral-950 text-neutral-500 border-neutral-800">
+                <kbd className="w-16 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇪
                 </kbd>
                 {["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'"].map(
                   (key) => (
                     <kbd
                       key={key}
-                      className={`w-10 h-10 flex items-center justify-center rounded border ${
+                      className={`w-10 h-10 flex items-center justify-center rounded ring ${
                         keyNoteMap[key]
-                          ? "bg-neutral-950 text-white border-neutral-600"
-                          : "bg-neutral-950 text-neutral-700 border-neutral-800"
+                          ? "bg-neutral-950 text-white ring-neutral-600 hover:ring-red-600"
+                          : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                       }`}
                     >
                       {keyNoteMap[key] ?? ""}
                     </kbd>
                   )
                 )}
-                <kbd className="w-16 h-10 flex items-center justify-center rounded border bg-neutral-950 text-neutral-500 border-neutral-800">
+                <kbd className="w-16 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⏎
                 </kbd>
               </div>
 
               {/* Row 4: ZXCV */}
               <div className="flex justify-center gap-[4px]">
-                <kbd className="w-20 h-10 flex items-center justify-center rounded border bg-neutral-950 text-neutral-500 border-neutral-800">
+                <kbd className="w-20 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇧
                 </kbd>
                 {["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"].map(
                   (key) => (
                     <kbd
                       key={key}
-                      className={`w-10 h-10 flex items-center justify-center rounded border ${
+                      className={`w-10 h-10 flex items-center justify-center rounded ring ${
                         keyNoteMap[key]
-                          ? "bg-neutral-950 text-white border-neutral-600"
-                          : "bg-neutral-950 text-neutral-700 border-neutral-800"
+                          ? "bg-neutral-950 text-white ring-neutral-600 hover:ring-red-600"
+                          : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                       }`}
                     >
                       {keyNoteMap[key] ?? ""}
                     </kbd>
                   )
                 )}
-                <kbd className="w-24 h-10 flex items-center justify-center rounded border bg-neutral-950 text-neutral-500 border-neutral-800">
+                <kbd className="w-24 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇧
                 </kbd>
               </div>
@@ -179,7 +179,7 @@ export default function Home() {
           </div>
 
           {/* Placeholder: Future UI components */}
-          <div className="mt-4 border border-neutral-800 rounded-lg p-4 bg-neutral-900 text-center">
+          <div className="mt-4 ring ring-neutral-800 rounded-lg p-4 bg-neutral-900 text-center">
             <p className="text-neutral-500">🎵 No project loaded.</p>
             <p className="text-sm mt-2 text-neutral-500">
               Start playing below — or drag a MIDI/audio file (coming soon).
@@ -194,7 +194,7 @@ export default function Home() {
       </main>
 
       {/* Bottom Piano */}
-      <footer className="w-full h-[25vh] border-t border-neutral-800 bg-neutral-900">
+      <footer className="w-full h-[25vh] ring-t ring-neutral-800 bg-neutral-900">
         <Piano />
       </footer>
     </div>
