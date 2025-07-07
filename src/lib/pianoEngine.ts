@@ -1,3 +1,4 @@
+import { buffer } from "stream/consumers";
 import * as Tone from "tone";
 
 // --- State tracking ---
@@ -29,6 +30,8 @@ export function initSynth() {
     sustain: 0.5,
     release: 1.0,
   }).connect(reverb);
+  
+  // sample_buffer = new Tone.buffer()
 
   sampler = new Tone.Sampler({
     urls: { C4: "C4.wav" },

@@ -1,7 +1,6 @@
 // White keys: ┃C┃D┃E┃F┃G┃A┃B┃  → grid-cols-7 (under)
 // Black keys: ┃ ⎯C#⎯ D#┃   ⎯F#⎯ G#⎯ A#┃  → grid-cols-5 + grid-cols-7 (above, inline)
 
-import React from "react";
 import { PianoKey } from "../atoms/PianoKey";
 
 interface PianoOctaveProps {
@@ -14,7 +13,7 @@ export const PianoOctave: React.FC<PianoOctaveProps> = ({ octave, activeNotes })
   // Helper to check if note is active
   const isActive = (note: string) => activeNotes.has(note);
   return (
-    <div className="relative w-[100dvw] sm:w-[33dvw]">
+    <div className="relative w-[100dvw] sm:w-[30dvw] 2xl:w-[20dvw]">
       {/* White keys */}
       <div className="grid grid-cols-7 w-full h-full z-0">
         {whiteNotes.map((note) => (
