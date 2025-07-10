@@ -63,9 +63,9 @@ export default function Home() {
 
             <div className="space-y-2 font-mono text-xs">
               {/* Row 1: Number row */}
-              <div className="flex justify-center gap-[4px]">
+              <div className="flex justify-center gap-1.5">
                 {[
-                  "`",
+                  "~",
                   "1",
                   "2",
                   "3",
@@ -87,7 +87,7 @@ export default function Home() {
                         : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                     }`}
                   >
-                    {keyNoteMap[key] ?? ""}
+                    {keyNoteMap[key] ?? key}
                   </kbd>
                 ))}
                 <kbd className="w-16 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
@@ -96,7 +96,7 @@ export default function Home() {
               </div>
 
               {/* Row 2: QWERTY */}
-              <div className="flex justify-center gap-[4px]">
+              <div className="flex justify-center gap-1.5">
                 <kbd className="w-14 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇥
                 </kbd>
@@ -123,13 +123,13 @@ export default function Home() {
                         : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                     }`}
                   >
-                    {keyNoteMap[key] ?? ""}
+                    {keyNoteMap[key] ?? key}
                   </kbd>
                 ))}
               </div>
 
               {/* Row 3: ASDF */}
-              <div className="flex justify-center gap-[4px]">
+              <div className="flex justify-center gap-1.5">
                 <kbd className="w-16 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇪
                 </kbd>
@@ -143,7 +143,7 @@ export default function Home() {
                           : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                       }`}
                     >
-                      {keyNoteMap[key] ?? ""}
+                      {keyNoteMap[key] ?? key}
                     </kbd>
                   )
                 )}
@@ -153,7 +153,7 @@ export default function Home() {
               </div>
 
               {/* Row 4: ZXCV */}
-              <div className="flex justify-center gap-[4px]">
+              <div className="flex justify-center gap-1.5">
                 <kbd className="w-20 h-10 flex items-center justify-center rounded ring bg-neutral-950 text-neutral-500 ring-neutral-800">
                   ⇧
                 </kbd>
@@ -167,7 +167,7 @@ export default function Home() {
                           : "bg-neutral-950 text-neutral-700 ring-neutral-800"
                       }`}
                     >
-                      {keyNoteMap[key] ?? ""}
+                      {keyNoteMap[key] ?? key}
                     </kbd>
                   )
                 )}
