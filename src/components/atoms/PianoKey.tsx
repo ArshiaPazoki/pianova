@@ -33,7 +33,7 @@ export const PianoKey: React.FC<PianoKeyProps> = ({
 
   const activeClass = isActive
     ? type === "white"
-      ? "!bg-neutral-300 !ring-neutral-700 !shadow-lg"
+      ? "!bg-neutral-500 !ring-neutral-700 !shadow-lg"
       : "!bg-neutral-700 !shadow-lg"
     : "";
 

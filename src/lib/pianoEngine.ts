@@ -1,4 +1,6 @@
 import * as Tone from "tone";
+import { usePianoStore } from "@/store/usePianoStore";
+
 
 // --- State tracking ---
 let sustainOn = true;
@@ -46,11 +48,13 @@ export async function playNote(note: string, velocity = 1) {
   if (!initialized) initSynth();
 
   await Tone.start();
-
   const now = Tone.now();
+
   heldNotes.add(note);
   sampler.triggerAttack(note, now, velocity);
   envelope.triggerAttack(now);
+
+  usePianoStore.getState().addNote(note);
 }
 
 /**
@@ -64,6 +68,7 @@ export function releaseNote(note: string) {
   } else {
     triggerNoteRelease(note);
   }
+  usePianoStore.getState().removeNote(note);
 }
 
 /**
