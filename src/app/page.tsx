@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { Piano } from "@/components/organisms/Piano";
 import { initMIDI } from "@/lib/pianoEngine";
-import { keyNoteMap } from "@/hooks/useKeyboardPiano";
-import { RecordPanel } from "@/components/organisms/RecordPanel";
+// import { keyNoteMap } from "@/hooks/useKeyboardPiano";
+// import { RecordPanel } from "@/components/organisms/RecordPanel";
 import { Keyboard } from "@/components/organisms/Keyboard";
 import { Header } from "@/components/organisms/Header";
 

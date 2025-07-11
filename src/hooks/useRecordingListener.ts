@@ -4,7 +4,7 @@ import { useRecordStore } from "@/store/useRecordStore";
 
 export const useRecordingListener = () => {
   const { isRecording, addEvent, startTime } = useRecordStore();
-  const { activeNotes } = usePianoStore();
+//   const { activeNotes } = usePianoStore();
 
   useEffect(() => {
     if (!isRecording || !startTime) return;
